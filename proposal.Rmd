@@ -1,0 +1,20 @@
+---
+output:
+  pdf_document: 
+      extra_dependencies: ["bbm"] 
+  html_document: default
+  title: "Project Proposal"
+---
+
+# Altai Battulga
+# 34352013
+# Project Prosal
+
+I will be working alone on the themes of deep generative models and variational inference. This project aims to incorporate Bayesian Inference into Variational Autoencoders by applying MCMC onto the latent space posterior instead of the standardard Variational Inference. I will first train a standard VAE, likely with ELBO-based optimization, then figure out sampling from that with an MCMC.
+
+I will be training the dataset on either one of: 
+
+- [Cat Dataset of 64x64 images](https://www.kaggle.com/datasets/borhanitrash/cat-dataset)
+- [Other Cat Dataset](https://www.kaggle.com/datasets/crawford/cat-dataset) (2GB of cat images, which will need to be resized and normalized prior to training)
+
+GitHub link at [here](https://github.com/SerialGuitarist/Cats) or at https://github.com/SerialGuitarist/Cats.
