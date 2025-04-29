@@ -5,6 +5,51 @@ A standard autoeoncoder compresses the observation X into a smaller dimensional 
 
 Given the data comes from some true distribution p*(x), we approximate this with p(x) with the help of the latent variable by modeling the joint distribution p(x,z). But marginilizing this to get just p(x) is intractable, so this means calculating p(z|x) is also intractable, so we approximate this through a [variational distribution](https://en.wikipedia.org/wiki/Variational_Bayesian_methods) q(z|x) of our choice. We optimize this approximation by maximizing the [Evidence Lower Bound](https://en.wikipedia.org/wiki/Evidence_lower_bound) (ELBO).
 
+## Images
+Given a [dataset of about 30k images of cats](https://www.kaggle.com/datasets/borhanitrash/cat-dataset)
+
+### Some images from the dataset
+![Some images from the dataset](images/cats_batch.png)
+
+### Samples taken with normal latent space
+![Samples taken with normal latent space](images/normal_samples.png)
+
+### Samples taken with exponential latent space
+![Samples taken with exponential latent space](images/exponential_samples.png)
+
+### Samples taken with laplacian latent space
+![Samples taken with laplacian latent space](images/laplace_samples.png)
+
+### Reconstructions
+
+#### Original images
+![Original images](images/reconstruction/original.png)
+
+#### Reconstructions using normal latent space
+![Reconstructions using normal latent space](images/reconstruction/vae_normal.png)
+
+#### Reconstructions using exponential latent space
+![Reconstructions using exponential latent space](images/reconstruction/vae_exponential.png)
+
+#### Reconstructions using laplacian latent space
+![Reconstructions using laplacian latent space](images/reconstruction/vae_laplace.png)
+
+### Model means ("most average cats")
+![Model means](images/model_means.png)
+
+### Latent space interpolations
+
+#### Original interpolation
+![Original interpolation](images/interpolation/original.png)
+
+#### Interpolation with normal latent space
+![Interpolation with normal latent space](images/interpolation/vae_normal.png)
+
+#### Interpolation with exponential latent space
+![Interpolation with exponential latent space](images/interpolation/vae_exponential.png)
+
+#### Interpolation with laplacian latent space
+![Interpolation with laplacian latent space](images/interpolation/vae_laplace.png)
 
 # Files
 - `cats.py` has utilities for loading the cat dataset and saving batches of images
