@@ -8,7 +8,9 @@ from cats import *
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Device: {device}")
 
-class VAENormal(nn.Module):
+#### experimented with learning the variance for each reconstruction pixel
+#### it did not go very well
+class VAENormalLearntVariance(nn.Module):
     def __init__(self, hidden=8, epochs=100, batch_size=16, checkpoint_path="models/cats/vae_normal/", save_every=10):
         super().__init__()
         self.num_latent = hidden

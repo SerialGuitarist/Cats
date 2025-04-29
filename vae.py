@@ -477,11 +477,11 @@ class VAELaplace(VAENormal):
 
 
 ## training
-# dataset, loader = load_cats_dataset("data/cats", batch_size=64)
-# model = VAENormal(hidden=64, epochs=100, save_every=5, backup_every=10)
+dataset, loader = load_cats_dataset("data/cats", batch_size=64)
+model = VAENormal(hidden=512, epochs=100)
 # model = VAELaplace(hidden=64, epochs=100, save_every=5, backup_every=10)
 # # model = VAEExponential(hidden=64, epochs=100, save_every=5, backup_every=10)
-# model.fit(loader)
+model.fit(loader)
 
 # samples = model.sample(n_samples=10).detach().cpu()
 # save_images(
@@ -491,11 +491,12 @@ class VAELaplace(VAENormal):
 # )
 
 
-models = [
-        VAENormal(hidden=64, epochs=100, save_every=5, backup_every=10),
-        VAEExponential(hidden=64, epochs=100, save_every=5, backup_every=10),
-        VAELaplace(hidden=64, epochs=100, save_every=5, backup_every=10)
-]
+# models = [
+        # VAENormal(hidden=64, epochs=100, save_every=5, backup_every=10),
+        # VAEExponential(hidden=64, epochs=100, save_every=5, backup_every=10),
+        # VAELaplace(hidden=64, epochs=100, save_every=5, backup_every=10)
+# ]
+
 
 
 ## reconstruction test
@@ -527,26 +528,26 @@ models = [
 # xs = torch.cat(decoded, dim=0)
 # save_images(xs, save_path=f"data/model_means.png", labels=labels, title=f"Model means")
 
-## interpolation test
-def interpolate(z1, z2, n=8, include=True):
-    alphas = torch.linspace(1/(n+1), n/(n+1), n, device=z1.device)
-    interpolations = torch.stack([(1 - alpha) * z1 + alpha * z2 for alpha in alphas])
-    if include:
-        output = torch.cat([z1.unsqueeze(0), interpolations, z2.unsqueeze(0)], dim=0)
-    else:
-        output = interpolations
-    return output
-
-cats = load_images(["data/cat_a.png", "data/cat_b.png"])
-save_images(cats, save_path=f"data/interpolation/original.png", title=f"Original Images")
-cats = cats.to(models[0].device)
-
-for model in models:
-    testing_zs, _ = model.forward(cats)
-    testing_zs = testing_zs.detach()
-
-    model.eval()
-    with torch.no_grad():
-        zs = interpolate(*testing_zs)
-        xs = model.decoder(zs).cpu()
-        save_images(xs, save_path=f"data/interpolation/{model.name}.png", title=f"{model.name}")
+# ## interpolation test
+# def interpolate(z1, z2, n=8, include=True):
+    # alphas = torch.linspace(1/(n+1), n/(n+1), n, device=z1.device)
+    # interpolations = torch.stack([(1 - alpha) * z1 + alpha * z2 for alpha in alphas])
+    # if include:
+        # output = torch.cat([z1.unsqueeze(0), interpolations, z2.unsqueeze(0)], dim=0)
+    # else:
+        # output = interpolations
+    # return output
+# 
+# cats = load_images(["data/cat_a.png", "data/cat_b.png"])
+# save_images(cats, save_path=f"data/interpolation/original.png", title=f"Original Images")
+# cats = cats.to(models[0].device)
+# 
+# for model in models:
+    # testing_zs, _ = model.forward(cats)
+    # testing_zs = testing_zs.detach()
+# 
+    # model.eval()
+    # with torch.no_grad():
+        # zs = interpolate(*testing_zs)
+        # xs = model.decoder(zs).cpu()
+        # save_images(xs, save_path=f"data/interpolation/{model.name}.png", title=f"{model.name}")
